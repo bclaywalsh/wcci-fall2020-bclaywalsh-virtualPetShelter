@@ -18,6 +18,7 @@ public class VirtualPet {
     private int loyalty;
     private int quintessence;
     private int quintessenceLast = quintessence;
+    private boolean wasFocusedOn = false;
 
     private int ascendance = 8;
     private int capriciousness;
@@ -67,7 +68,7 @@ public class VirtualPet {
             this.loyalty = 0;
             this.ascendance = 7;
 
-        }else if ((petSpecies.equals("dragon")) || (petSpecies.equals("ryu"))) {
+        } else if ((petSpecies.equals("dragon")) || (petSpecies.equals("ryu"))) {
             this.petSpecies = "Dragon";
             if (boredom < 3) boredom = 3;
             if (intelligence < 5) intelligence = 5;
@@ -75,14 +76,14 @@ public class VirtualPet {
             if (lifeSpan < 3) lifeSpan = 3;
             if (quintessence < 4) quintessence = 4;
             this.ascendance = 13;
-        }else if ((petSpecies.equals("kirrin")) || (petSpecies.equals("quilin"))) {
+        } else if ((petSpecies.equals("kirrin")) || (petSpecies.equals("quilin"))) {
             this.petSpecies = "Kirrin";
             this.boredom = 0;
             if (intelligence < 3) intelligence = 3;
             if (discipline < 4) discipline = 4;
             this.quintessence = 1;
             this.ascendance = 20;
-        }else if ((petSpecies.equals("phoenix")) || (petSpecies.equals("pheonix"))) {
+        } else if ((petSpecies.equals("phoenix")) || (petSpecies.equals("pheonix"))) {
             this.petSpecies = "Phoenix";
             if (boredom < 3) boredom = 3;
             if (intelligence > 4) intelligence = 4;
@@ -105,6 +106,15 @@ public class VirtualPet {
         this.loyalty = loyalty;
         this.discipline = discipline;
         this.quintessence = quintessence;
+    }
+
+
+    public boolean isWasFocusedOn() {
+        return wasFocusedOn;
+    }
+
+    public void setWasFocusedOn(boolean wasFocusedOn) {
+        this.wasFocusedOn = wasFocusedOn;
     }
 
     public int getGoalProgressionLast() {
@@ -345,7 +355,7 @@ public class VirtualPet {
 
             // list of interactions available, aligned in order of difficulty and helpfulness at increasing goalProgress
             interactions.put(10, "Urge " + petName + " to help a child learn.");
-            interactions.put(9, "Help "  + petName + " to reward a good child.");
+            interactions.put(9, "Help " + petName + " to reward a good child.");
             interactions.put(8, "Encourage " + petName + " to help increase the household income.");
             interactions.put(7, "Instruct " + petName + " to help with cleaning the house.");
             interactions.put(6, "Teach " + petName + " some household rules.");
@@ -525,15 +535,16 @@ public class VirtualPet {
 
 
     //update status
-    public void tick(){
+    public void tick() {
         lifeSpan++;
         hunger++;
-        reactionString = " is looking after themselves";
+        boredom++;
+        if (!wasFocusedOn) reactionString = " is looking after themselves";
 
         //update mood
         if (hunger > 5) {
             mood = "hungry.";
-        } else if (goalProgression < lifeSpan * 0.5) {
+        } else if (goalProgression < lifeSpan * 0.25) {
             mood = "tired...";
         } else if (boredom > 3) {
             mood = "bored.";
@@ -543,7 +554,7 @@ public class VirtualPet {
             mood = "happy.";
         }
 
-        randomProgress = (Math.random() + 0.5) + 0.1 * ((double) goalProgression + (double) loyalty + (double) discipline - (double) lifeSpan * 0.75 - (double) hunger - (double) boredom);
+        randomProgress = (Math.random()) + 0.2 * ((double) goalProgression + (double) loyalty + (double) discipline + (double) intelligence - (double) lifeSpan * 0.75 - (double) hunger - (double) boredom);
 
         //update goalProgress && quintessence
         if (randomProgress > 1) {
@@ -561,6 +572,8 @@ public class VirtualPet {
             }
         }
 
+        wasFocusedOn = false;
+
         //Kami Stats Cannot Drop Below Zero
         if (loyalty < 0) loyalty = 0;
         if (discipline < 0) discipline = 0;
@@ -569,6 +582,7 @@ public class VirtualPet {
         if (goalProgression < 0) goalProgression = 0;
         if (hunger < 0) hunger = 0;
     }
+
     public void react(int reaction) {
 
         //reaction = command;
@@ -583,7 +597,6 @@ public class VirtualPet {
         } else if (reaction == 3) {
             reaction = interactionThree;
         }
-
 
 
         //check the loyalty of the kami against a random number 1 through 10, with an increased difficulty based on the index of the interaction

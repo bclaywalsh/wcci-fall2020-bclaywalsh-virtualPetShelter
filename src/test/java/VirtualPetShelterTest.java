@@ -11,35 +11,59 @@ import static org.junit.Assert.assertEquals;
 
 public class VirtualPetShelterTest {
     @Test
-    public void petShouldHaveName() {
+    public void getNameShouldReturnName() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
-        String petName = underTest.getPetName();
-        assertEquals(petName, "Mimi");
+        assertEquals(underTest.getPetName(), "Mimi");
     }
 
     @Test
-    public void petShouldHaveSpecies() {
+    public void setNameShouldChangeName() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
-        String petSpecies = underTest.getPetSpecies();
-        assertEquals(petSpecies, "Hearth Kami");
+        underTest.setPetName("Momo");
+        assertEquals(underTest.getPetName(), "Momo");
     }
 
     @Test
-    public void petShouldHaveHunger() {
+    public void getSpeciesShouldReturnSpecies() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
-        int petHunger = underTest.getHunger();
-        assertEquals(petHunger, 2);
+        assertEquals(underTest.getPetSpecies(), "Hearth Kami");
     }
 
     @Test
-    public void petShouldHaveGoalProgression() {
+    public void setSpeciesShouldChangeSpecies() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
-        int petThirst = underTest.getGoalProgression();
-        assertEquals(petThirst, 0);
+        underTest.setPetSpecies("Boojum");
+        assertEquals(underTest.getPetSpecies(), "Boojum");
     }
 
     @Test
-    public void petShouldHaveGoalName(){
+    public void getHungerShouldReturnHunger() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        assertEquals(underTest.getHunger(), 2);
+    }
+
+    @Test
+    public void setHungerShouldChangeHunger() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setHunger(6000);
+        assertEquals(underTest.getHunger(), 6000);
+    }
+
+    @Test
+    public void getGoalProgressionShouldReturnGoalProgression() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        assertEquals(underTest.getGoalProgression(), 0);
+    }
+
+    @Test
+    public void setGoalProgressionShouldChangeGoalProgression() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setGoalProgression(63432);
+        assertEquals(underTest.getGoalProgression(), 63432);
+    }
+
+    @Test
+    public void getGoalNameReturns() {
         VirtualPetShelter underTestShelter = new VirtualPetShelter();
         underTestShelter.admitPet(new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2));
         VirtualPet underTestPet = underTestShelter.getPet("Mimi");
@@ -48,10 +72,24 @@ public class VirtualPetShelterTest {
     }
 
     @Test
-    public void petShouldHaveBoredom() {
+    public void setGoalNameShouldChangeGoalName() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setGoalName("to infinity, and beyond!");
+        assertEquals(underTest.getGoalName(), "to infinity, and beyond!");
+    }
+
+    @Test
+    public void petShouldHaveBoredom() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 12, 0, 2, 3, 3, 2);
         int petBoredom = underTest.getBoredom();
-        assertEquals(petBoredom, 0);
+        assertEquals(12, petBoredom);
+    }
+
+    @Test
+    public void setBoredomShouldChangeBoredom() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setBoredom(-54);
+        assertEquals(underTest.getBoredom(), -54);
     }
 
     @Test
@@ -61,9 +99,23 @@ public class VirtualPetShelterTest {
     }
 
     @Test
+    public void setDisciplineShouldChangeDiscipline() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setDiscipline(98);
+        assertEquals(underTest.getDiscipline(), 98);
+    }
+
+    @Test
     public void petShouldHaveIntelligence() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
         assertEquals(underTest.getIntelligence(), 2);
+    }
+
+    @Test
+    public void setIntelligenceShouldChangeIntelligence() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setIntelligence(120);
+        assertEquals(underTest.getIntelligence(), 120);
     }
 
     @Test
@@ -73,22 +125,44 @@ public class VirtualPetShelterTest {
     }
 
     @Test
+    public void setLoyaltyShouldChangeLoyalty() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setLoyalty(50);
+        assertEquals(underTest.getLoyalty(), 50);
+    }
+
+    @Test
     public void petShouldHaveQuintessence() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
         assertEquals(underTest.getQuintessence(), 2);
     }
 
     @Test
-    public void updateBioShouldChangeDragonQuintessenceTo7(){
+    public void setQuintessenceShouldChangeQUintessence() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setQuintessence(12);
+        assertEquals(underTest.getQuintessence(), 12);
+    }
+
+    @Test
+    public void updateBioShouldChangeDragonQuintessenceTo7() {
         VirtualPet underTest = new VirtualPet("Mimi", "dragon", 2, 0, 0, 0, 2, 3, 3, 2);
         underTest.updateBio();
         assertEquals(underTest.getQuintessence(), 7);
     }
+
     @Test
     public void petShouldHaveAscendance() {
         VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
         underTest.updateBio();
         assertEquals(underTest.getAscendance(), 8);
+    }
+
+    @Test
+    public void setAscendanceShouldChangeAscendance() {
+        VirtualPet underTest = new VirtualPet("Mimi", "Hearth Kami", 2, 0, 0, 0, 2, 3, 3, 2);
+        underTest.setAscendance(2);
+        assertEquals(underTest.getAscendance(), 2);
     }
 
     @Test
@@ -167,29 +241,15 @@ public class VirtualPetShelterTest {
         assertEquals(petB.getHunger(), 3);
     }
 
-//    @Test
-//    public void petBuiltWithDefaultIsDifferentFromOther(){
-//        VirtualPetShelter underTestShelter = new VirtualPetShelter();
-//        underTestShelter.admitPet(new VirtualPet("Mimi", "Hearth Kami"));
-//        underTestShelter.admitPet(new VirtualPet("Roland", "Hearth Kami", 2, 42, 4, 0, 2, 3, 3, 2));
-//        VirtualPet petA = underTestShelter.getPet("Mimi");
-//        VirtualPet petB = underTestShelter.getPet("Roland");
-//        if(petA.getGoalProgression() != petB.getGoalProgression
-//
-//    }
-
-//    @Test
-//    public void updateRosterNamesShouldAddANewPetNameToRoster(){
-//        VirtualPetShelter underTestShelter = new VirtualPetShelter();
-//        underTestShelter.admitPet(new VirtualPet("Mimi", "Hearth Kami"));
-//        underTestShelter.admitPet(new VirtualPet("Roland", "Hearth Kami", 2, 0, 4, 0, 2, 3, 3, 2));
-//
-//    }
-
-//    @Test
-//    public void petCanBeInteractedWithDirectlyAndToldToPerformRandomizedCommand(){
-//        VirtualPetShelter underTestShelter = new VirtualPetShelter();
-//        underTestShelter.admitPet(new VirtualPet("Mimi", "Hearth Kami"));
-//        assertEquals(underTestShelter.focusWill("Mimi"),0);
-//    }
+    @Test
+    public void virtualShelterTickShouldAdvanceBoredomOfAllPetsBy1() {
+        VirtualPetShelter underTestShelter = new VirtualPetShelter();
+        underTestShelter.admitPet(new VirtualPet("Mimi", "Hearth Kami", 1, 0, 4, 0, 2, 3, 3, 2));
+        underTestShelter.admitPet(new VirtualPet("Roland", "Hearth Kami", 2, 0, 4, 0, 2, 3, 3, 2));
+        VirtualPet petA = underTestShelter.getPet("Mimi");
+        VirtualPet petB = underTestShelter.getPet("Roland");
+        underTestShelter.tick();
+        assertEquals(5, petA.getBoredom());
+        assertEquals(5, petB.getBoredom());
+    }
 }

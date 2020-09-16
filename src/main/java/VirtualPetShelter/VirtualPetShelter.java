@@ -8,7 +8,7 @@ public class VirtualPetShelter {
     private double randomRoll = Math.random();
     private HashMap<String, VirtualPet> gardenKami = new HashMap<>();
     private boolean focusing = false;
-    Scanner input = new Scanner(System.in);
+    private Scanner input = new Scanner(System.in);
 
     public void admitPet(VirtualPet newPet) {
         newPet.updateBio();
@@ -79,11 +79,11 @@ public class VirtualPetShelter {
         }
     }
 
-    public void focusWill(String kamiName){
+    public void focusWill(String kamiName) {
         focusing = true;
         int command = 0;
         VirtualPet kami = gardenKami.get(kamiName);
-            //display 3 random interaction options
+        //display 3 random interaction options
         kami.generateChoices();
         System.out.println("\n" + kami.getInteractionOne() + " = " + kami.getInteractionOneString());
         System.out.println(kami.getInteractionTwo() + " = " + kami.getInteractionTwoString());
